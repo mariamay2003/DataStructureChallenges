@@ -1,0 +1,27 @@
+void main() {
+  String expression1 = "(a+b)*(c-d)";
+  String expression2 = "((a+b)*(c-d)";
+  
+  print('Expression 1: $expression1');
+  print('Balanced: ${isBalancedParentheses(expression1)}');
+  
+  print('Expression 2: $expression2');
+  print('Balanced: ${isBalancedParentheses(expression2)}');
+}
+
+bool isBalancedParentheses(String input) {
+  List<String> stack = [];
+
+  for (int i = 0; i < input.length; i++) {
+    if (input[i] == '(') {
+      stack.add('(');
+    } else if (input[i] == ')') {
+      if (stack.isEmpty) {
+        return false; // unbalanced parentheses
+      }
+      stack.removeLast();
+    }
+  }
+
+  return stack.isEmpty; // parentheses are balanced if the stack is empty
+}
