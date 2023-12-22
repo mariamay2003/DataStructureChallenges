@@ -1,0 +1,16 @@
+void main() {
+  List<int> originalList = [1, 2, 3, 4, 5];
+  List<int> reversedList = reverseListUsingStack(originalList);
+
+  print('Original List: $originalList');
+  print('Reversed List: $reversedList');
+}
+
+List<int> reverseListUsingStack(List<int> inputList) {
+  List<int> reversedList = [];
+  List<int> stack = List.from(inputList.reversed);
+
+  reversedList.addAll(stack);
+
+  return reversedList;
+}
