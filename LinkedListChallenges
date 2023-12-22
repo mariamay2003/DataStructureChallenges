@@ -1,0 +1,117 @@
+class Node<T> {
+  T data;
+  Node<T>? next;
+
+  Node(this.data, [this.next]);
+}
+
+class LinkedList<T> {
+  Node<T>? head;
+
+  void printInReverse() {
+    print("Challenge 1: Print in Reverse:");
+    _printInReverse(head);
+    print("");
+  }
+
+  Node<T>? findMiddleNode() {
+    if (head == null) {
+      return null;
+    }
+
+    var slowPointer = head;
+    var fastPointer = head;
+
+    while (fastPointer != null && fastPointer.next != null) {
+      slowPointer = slowPointer!.next;
+      fastPointer = fastPointer.next!.next;
+    }
+
+    return slowPointer;
+  }
+
+  void reverseLinkedList() {
+    print("Challenge 3: Reverse a Linked List:");
+    head = _reverseLinkedList(head);
+  }
+
+  void removeOccurrences(T element) {
+    print("Challenge 4: Remove All Occurrences of $element:");
+    head = _removeOccurrences(head, element);
+  }
+
+  void _printInReverse(Node<T>? node) {
+    if (node == null) {
+      return;
+    }
+
+    _printInReverse(node.next);
+    print(node.data);
+  }
+
+  Node<T>? _reverseLinkedList(Node<T>? current) {
+    Node<T>? prev = null;
+    Node<T>? nextNode;
+
+    while (current != null) {
+      nextNode = current.next;
+      current.next = prev;
+      prev = current;
+      current = nextNode;
+    }
+
+    return prev;
+  }
+
+  Node<T>? _removeOccurrences(Node<T>? current, T element) {
+    while (current != null && current.data == element) {
+      current = current.next;
+    }
+
+    if (current == null) {
+      return null;
+    }
+
+    var temp = current;
+
+    while (temp.next != null) {
+      if (temp.next!.data == element) {
+        temp.next = temp.next!.next;
+      } else {
+        temp = temp.next!;
+      }
+    }
+
+    return current;
+  }
+}
+
+void main() {
+  LinkedList<int> linkedList = LinkedList<int>();
+
+  //adding elements to the linked list
+  linkedList.head = Node(1);
+  linkedList.head!.next = Node(2);
+  linkedList.head!.next!.next = Node(3);
+  linkedList.head!.next!.next!.next = Node(4);
+  linkedList.head!.next!.next!.next!.next = Node(5);
+
+  //print in Reverse
+  linkedList.printInReverse();
+
+  //find the Middle Node
+  var middleNode = linkedList.findMiddleNode();
+  if (middleNode != null) {
+    print("Challenge 2: Find the Middle Node:");
+    print("Middle Node: ${middleNode.data}");
+    print("");
+  }
+
+  //reverse a Linked List
+  linkedList.reverseLinkedList();
+  linkedList.printInReverse();
+
+  //remove all occurrences
+  linkedList.removeOccurrences(3);
+  linkedList.printInReverse();
+}
